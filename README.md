@@ -15,4 +15,4 @@ This Bash script aids in building an SSH key and then importing it to your serve
 
 ### License
 
-**SSH Key Builder** is licensed by Chris Trimble under the GPL v3 Open Source license (2023). Refer to the file "LICENSE.md" for more information.
+**SSH Key Builder** is licensed by Chris Trimble under the GPL v3 Open Source license (2023). Refer to the file "LICENSE" for more information.
