@@ -4,8 +4,8 @@ This Bash script aids in building an SSH key and then importing it to your serve
 
 ### Prerequisites
 
-1. An SSH client on a Linux machine.
-2. A server with SSH support.
+1. An OpenSSH client on a Linux machine.
+2. A server with OpenSSH support.
 
 ### Usage
 
