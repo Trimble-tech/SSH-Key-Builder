@@ -1,7 +1,6 @@
 #   --Chris Trimble GNU GPLv3 2023--
 
-##Script written for simplicity in integrating in larger project if needed
-    ##Variables: filename, username, IP, identity, port
+##Run this on your client (PC), and refer to README.md for details
 
 ##Look at current keys
 ls -a ~/.ssh
@@ -15,8 +14,7 @@ echo "Creating key..."
 read -p "Enter the name of your new key:" filename
 
 ##Makes sure key is built in correct folder
-cd ~/.ssh
-ssh-keygen -f $filename
+ssh-keygen -f ~/.ssh/${filename}
 
 ##Define login string as variable to work with script
 echo "Now that you have created a key it can be imported to the server."
@@ -38,13 +36,39 @@ done
 
 identity="${username}@$IP"
 
-##Import the key to the new system
-echo "Copying your key to the server..."
-ssh-copy-id -p $port $identity ##May import other keys, set "-i $filename" for strict import
-echo "Done."
+##Added support for Dropbear servers
+##OpenSSH uses ssh-copy-id, Dropbear is manual since ssh-copy-id on Dropbear uses OpenWRT defaults
+while true; do
+    read -p "Is your server using OpenSSH or Dropbear? [O/D] " od
+        case $od in
+        [Oo]* ) 
+                echo "Copying your key to the server..."
+                ssh-copy-id -p $port $identity ##May import other keys, set "-i $filename" for strict import
+                echo "Done."
+                break;;
 
-##Undos 'cd' from line 18
-cd
+        [Dd]* )
+                ##I could use ssh -p once here, but then troubleshooting/reading would be rather difficult...
+                ##End result is clean but requires 2 connections to be made
+                ##Thanks to Dietpi's Joulinar & trendy for support
+
+                ##Move public key to Dropbear server
+                ssh -p $port $identity "mkdir -p ~/.ssh; tee -a ~/.ssh/authorized_keys" < ~/.ssh/${filename}.pub
+
+                ##Set the correct permissions for Dropbear server to accept keys as valid
+                ssh -p $port $identity "sudo chmod 700 ~/.ssh; sudo chmod 600 ~/.ssh/authorized_keys; sudo chown ${username}:${username} ~/.ssh/authorized_keys"
+
+                ##Make config file so OpenSSH client can use correct key for Dropbear server
+                echo "Host ${IP}">>~/.ssh/config
+                echo "IdentityFile ~/.ssh/${filename}">>~/.ssh/config
+                echo "Port ${port}">>~/.ssh/config
+
+                echo "Done"
+                break;;
+    
+        * ) echo "O selects OpenSSH, D selects Dropbear.";;
+    esac
+done
 
 ##Ask user if new session is desired
 while true; do
