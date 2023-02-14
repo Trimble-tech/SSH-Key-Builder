@@ -43,7 +43,20 @@ while true; do
         case $od in
         [Oo]* ) 
                 echo "Copying your key to the server..."
-                ssh-copy-id -p $port $identity ##May import other keys, set "-i $filename" for strict import
+                ##Copies key with set parameters
+                ssh-copy-id -i ~/.ssh/${filename}.pub -p $port $identity
+                echo "Done."
+
+                ##Extra check for correct permissions, creates extra login prompt but worth it...
+                echo "Configuring host server..."
+                ssh -p $port $identity "sudo chmod 700 ~/.ssh; sudo chmod 600 ~/.ssh/authorized_keys; sudo chown ${username}:${username} ~/.ssh/authorized_keys"
+                echo "Done."
+
+                ##Creates/adds to client ssh config file so key is correctly used
+                echo "Configuring client..."
+                echo "Host ${IP}">>~/.ssh/config
+                echo "IdentityFile ~/.ssh/${filename}">>~/.ssh/config
+                echo "Port ${port}">>~/.ssh/config
                 echo "Done."
                 break;;
 
@@ -74,7 +87,7 @@ done
 while true; do
     read -p "Do you want to start an SSH session with your new key? [Y/N]" yn
         case $yn in
-        [Yy]* ) echo "Logging in..." && ssh -p $port $identity && echo "Enjoy the new keys." && exit; break ;;
+        [Yy]* ) echo "Logging in..." && ssh -p $port $identity && break ;;
         [Nn]* ) echo "Okay, not logging in now." && break;;
         * ) echo 'Yes or No?' ;;
     esac
