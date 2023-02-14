@@ -74,7 +74,7 @@ done
 while true; do
     read -p "Do you want to start an SSH session with your new key? [Y/N]" yn
         case $yn in
-        [Yy]* ) echo "Logging in..." && ssh -p $port $identity && break ;;
+        [Yy]* ) echo "Logging in..." && ssh -p $port $identity && echo "Enjoy the new keys." && exit; break ;;
         [Nn]* ) echo "Okay, not logging in now." && break;;
         * ) echo 'Yes or No?' ;;
     esac
