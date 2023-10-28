@@ -13,6 +13,8 @@ This Bash script aids in building an SSH key and then importing it to your serve
 2. Mark it executable: **chmod +x ssh-key-builder.sh**
 3. Execute the script: **./ssh-key-builder**
 
+* Quick deploy: `wget https://raw.githubusercontent.com/Trimble-tech/SSH-Key-Builder/main/ssh-key-builder.sh && chmod +x ssh-key-builder.sh && ./ssh-key-builder.sh`
+
 ### Terminology/Good Things to Know
 
 * SSH, generally speaking, is the connection via a *client* system like a PC or laptop and a *server*. The server can be any device running Linux, but generally is continuously running an SSH server application. Clients are like customers, and servers are like businesses, to make an analogy.
