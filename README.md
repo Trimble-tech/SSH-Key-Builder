@@ -38,4 +38,4 @@ If you are want to learn more about this script, email me at chris.trimble3.ct@g
 
 ### License
 
-**SSH Key Builder** is licensed by Chris Trimble under the GPL v3 Open Source license (2023). Refer to the file "LICENSE" for more information.
+**SSH Key Builder** is licensed under the GPL v3 Open Source license (2023). Refer to the file "LICENSE" for more information.
