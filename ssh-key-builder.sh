@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #   --Chris Trimble GNU GPLv3 2023--
 
 ##Run this on your client (PC), and refer to README.md for details
