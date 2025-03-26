@@ -1,6 +1,57 @@
+#!/bin/bash
+
 #   --Chris Trimble GNU GPLv3 2023--
 
 ##Run this on your client (PC), and refer to README.md for details
+##Help/options function
+Help()
+{
+    echo ""
+    echo "Syntax: ./ssh-key-builder.sh [-h|-l|-v]"
+    echo "Options:"
+    echo "l     Display license."
+    echo "h     Print this Help."
+#    echo "n    Name of SSH Key."
+#    echo "d    Don't export key to server, only create."
+#    echo ""
+    echo "v     Print software version and exit."
+#    echo ""
+}
+
+License()
+{
+    echo "This program is licensed under GNU GPL v3."
+    echo "The license can be read in full here:"
+    echo "https://github.com/Trimble-tech/SSH-Key-Builder/blob/main/LICENSE"
+    echo ""
+}
+
+Version()
+{
+    echo "Version 1.2"
+}
+
+##Handle the Help options so they work...
+while getopts ":hlv" option; do
+    case $option in
+        h) # display Help
+            Help
+            exit;;
+
+            l) # display licensing
+            License
+            exit;;
+
+            v) #display version
+            Version
+            exit;;
+
+            \?) ##Catch all other options/statements
+            echo "Error: Invalid option."
+            echo "Consult help with: './ssh-key-builder.sh -h'"
+            exit;;
+        esac
+done
 
 ##Look at current keys
 ls -a ~/.ssh
@@ -61,7 +112,7 @@ while true; do
                 break;;
 
         [Dd]* )
-                ##I could use ssh -p once here, but then troubleshooting/reading would be rather difficult...
+                ##I could use ssh -p *once* here, but then troubleshooting/reading would be rather difficult...
                 ##End result is clean but requires 2 connections to be made
                 ##Thanks to Dietpi's Joulinar & trendy for support
 
