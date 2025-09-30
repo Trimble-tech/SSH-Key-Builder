@@ -34,8 +34,8 @@ This Bash script aids in building an SSH key and then importing it to your serve
 
 ###### Questions?
 
-If you are want to learn more about this script, email me at chris.trimble3.ct@gmail.com. For general advice about SSH setup, please refer to the forum or support group for your Linux distribution.
+If you are want to learn more about this script, email me at trimble-tech@hotmail.com. For general advice about SSH setup, please refer to the forum or support group for your Linux distribution.
 
 ### License
 
-**SSH Key Builder** is licensed under the GPL v3 Open Source license (2023). Refer to the file "LICENSE" for more information.
+**SSH Key Builder** is licensed under the GPL v3 Open Source license (2025). Refer to the file "LICENSE" for more information.
